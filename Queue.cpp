@@ -1,91 +1,99 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-
-const int p = 5;
-int queue[p];
-int front = -1, rear = -1;
-
-void enqueue() {
-    int val;
-    cout << "Enter value: ";
-    cin >> val;
-
-    if (rear == p - 1) {
+#define n 5
+int queue[n];
+int front = -1;
+int rear = -1;
+void enqueue()
+{
+    int k;
+    cout << "Enter data: ";
+    cin >> k;
+    if(rear == n-1){
         cout << "Overflow" << endl;
         return;
     }
-
-    if (front == -1) front = 0;
-    rear++;
-    queue[rear] = val;
-    cout << val << " enqueued" << endl;
-}
-
-void dequeue() {
-    if (front == -1 && rear == -1) {
-        cout << "Underflow!" << endl;
-        return;
+    else if(rear == -1 && front == -1){
+        rear = front = 0;
+        queue[rear] = k;
     }
-
-    cout << "Dequeued: " << queue[front] << endl;
-
-    if (front == rear) {
-        front = rear = -1;
-    } else {
+    else{
+        rear++;
+        queue[rear] = k;
+        cout << k << " Enqueued" << endl;
+    }
+}
+void dequeue()
+{
+    if(rear == -1 &&  front == -1){
+        cout << "underflow" << endl;
+    }
+    else if(rear == front){
+        cout << queue[front] << " Dequeued" << endl;
+        rear = front = -1;
+    }
+    else{
+        cout << queue[front] << " Dequeued" << endl;
         front++;
     }
 }
-
-void display() {
-    if (front == -1 || front > rear) {
+void peek()
+{
+    if(rear == -1 && front == -1)
+    {
+        cout << "Queueu is empty" << endl;
+    }
+    else{
+        cout << "Peek value: " << queue[front];
+    }
+}
+void display()
+{
+    if (rear == -1 && front == -1)
+    {
+        cout << "Queueu is empty" << endl;
+    }
+    else{
+        cout << "Queue elements: ";
+        for(int i = front;i<=rear;i++)
+        {
+             cout << queue[i] << " ";
+        }
+        cout << endl;
+    } 
+}
+void isFull(){
+     if (rear == n - 1) {
+        cout << "Queue is full" << endl;
+    }
+    else {
+        cout << "Queue is not full" << endl;
+    }
+}
+void isEmpty(){
+    if(front == -1)
+    {
         cout << "Queue is empty" << endl;
-        return;
     }
-
-    cout << "Queue elements: ";
-    for (int i = front; i <= rear; i++) {
-        cout << queue[i] << " ";
-    }
-    cout << endl;
-}
-
-void peek() {
-    if (front == -1 || front > rear) {
-        cout << "Queue is empty" << endl;
-    } else {
-        cout << "Front value: " << queue[front] << endl;
+    else{
+        cout << "Queue is not empty" << endl;
     }
 }
-
-void isFull() {
-    if (rear == p - 1) cout << "Queue is full." << endl;
-    else cout << "Queue is not full" << endl;
-}
-
-void isEmpty() {
-    if (front == -1 || front > rear) cout << "Queue is empty." << endl;
-    else cout << "Queue is not empty" << endl;
-}
-
-int main() {
-    int op;
-    cout << "Enter op number: ";
-    cin >> op;
-
-    while (op--) {
-        string c;
-        cout << "\nChoose one: enqueue | dequeue | display | peek | isfull | isempty\n";
-        cout << "Enter c: ";
-        cin >> c;
-
-        if (c == "enqueue") enqueue();
-        else if (c == "dequeue") dequeue();
-        else if (c == "display") display();
-        else if (c == "peek") peek();
-        else if (c == "isfull") isFull();
-        else if (c == "isempty") isEmpty();
-        else cout << "Invalid command" << endl;
+int main(){
+    int choice;
+    while(true){
+    cout << "\n1.enqueue |2.dequeue |3.peek |4.display |5.isfull |6.isempty |7.exit" << endl;
+    cout << "Enter choice: ";
+    cin >> choice;
+    switch (choice){
+        case 1: enqueue(); break;
+        case 2: dequeue(); break;
+        case 3: peek(); break;
+        case 4: display(); break;
+        case 5: isFull(); break;
+        case 6: isEmpty(); break;
+        case 7: cout <<"exit" << endl; return 0;
     }
-
+    }
     return 0;
 }
